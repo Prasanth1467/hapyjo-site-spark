@@ -1,49 +1,49 @@
 import { useFadeInOnScroll } from "@/hooks/use-fade-in";
 import {
-  MapPin,
+  HardHat,
   Truck,
   Wrench,
-  Fuel,
-  BarChart3,
-  Landmark,
+  Bus,
+  Settings,
+  Package,
 } from "lucide-react";
 
 const services = [
   {
-    icon: MapPin,
-    title: "Site Operations & Field Management",
+    icon: HardHat,
+    title: "Construction Site Support",
     description:
-      "End-to-end coordination of field activities, workforce, and site logistics — ensuring every project runs on schedule.",
+      "Comprehensive site logistics, coordination, and operational support to keep projects on track.",
   },
   {
     icon: Truck,
-    title: "Fleet & Vehicle Management",
+    title: "Fleet Logistics Management",
     description:
-      "Real-time oversight of your entire fleet: deployment, maintenance, utilisation, and performance tracking.",
+      "End-to-end fleet deployment, tracking, and maintenance for maximum uptime and utilization.",
   },
   {
     icon: Wrench,
-    title: "Vehicle & Machinery Rentals",
+    title: "Heavy Equipment Rentals",
     description:
-      "Trucks, earthmoving, and construction equipment available on flexible day or hour terms for your projects.",
+      "Excavators, loaders, cranes, and earthmoving machinery available on flexible rental terms.",
   },
   {
-    icon: Fuel,
-    title: "Expenses, Fuel & Cost Control",
+    icon: Bus,
+    title: "On-Site Workforce Transport",
     description:
-      "Granular tracking of fuel consumption, maintenance costs, and operational expenses — no surprises, full transparency.",
+      "Safe, reliable transport solutions for crews and personnel to and from project sites.",
   },
   {
-    icon: BarChart3,
-    title: "Surveys, Volume & Revenue Visibility",
+    icon: Settings,
+    title: "Project-Based Machinery Deployment",
     description:
-      "Volume surveys, trip tracking, and revenue analytics that give you a clear picture of project performance.",
+      "Tailored equipment packages deployed specifically for your project scope and timeline.",
   },
   {
-    icon: Landmark,
-    title: "Financial Control & Reporting (RWF)",
+    icon: Package,
+    title: "Material Handling Equipment Supply",
     description:
-      "Comprehensive financial oversight in Rwandan Francs: budgets, invoicing, profit margins, and compliance reporting.",
+      "Forklifts, handlers, and material-moving equipment for warehousing and construction needs.",
   },
 ];
 
@@ -54,17 +54,17 @@ const Services = () => {
     <section
       id="services"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} bg-secondary py-24 sm:py-32`}
+      className={`fade-in-section ${isVisible ? "is-visible" : ""} py-24 sm:py-32`}
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="text-center">
-          <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
             What We Do
           </p>
           <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-            Comprehensive Operations &amp; Control
+            Core Services
           </h2>
-          <div className="mx-auto mt-4 h-px w-16 bg-accent" />
+          <div className="mx-auto mt-5 gold-divider w-24" />
         </div>
 
         <div className={`mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 stagger-children ${isVisible ? "is-visible" : ""}`}>
