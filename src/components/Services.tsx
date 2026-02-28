@@ -1,49 +1,55 @@
 import { useFadeInOnScroll } from "@/hooks/use-fade-in";
-import {
-  HardHat,
-  Truck,
-  Wrench,
-  Bus,
-  Settings,
-  Package,
-} from "lucide-react";
+import { getHapyjoImage } from "@/lib/hapyjo-images";
+import { IMAGE_ALLOCATION } from "@/lib/image-allocation";
 
 const services = [
   {
-    icon: HardHat,
     title: "Construction Site Support",
-    description:
-      "Comprehensive site logistics, coordination, and operational support to keep projects on track.",
+    outcome: "Site logistics, coordination, and operational support to keep projects on track.",
+    deployment: "Project-based and ongoing site coverage",
+    cta: "Check Deployment Availability",
+    ctaHref: "/contact.html",
+    imageIndex: IMAGE_ALLOCATION.services[0],
   },
   {
-    icon: Truck,
     title: "Fleet Logistics Management",
-    description:
-      "End-to-end fleet deployment, tracking, and maintenance for maximum uptime and utilization.",
+    outcome: "End-to-end fleet deployment, tracking, and maintenance for maximum uptime.",
+    deployment: "Full fleet deployment and tracking",
+    cta: "Check Deployment Availability",
+    ctaHref: "/contact.html",
+    imageIndex: IMAGE_ALLOCATION.services[1],
   },
   {
-    icon: Wrench,
     title: "Heavy Equipment Rentals",
-    description:
-      "Excavators, loaders, cranes, and earthmoving machinery available on flexible rental terms.",
+    outcome: "Excavators, loaders, cranes, and earthmoving machinery on flexible terms.",
+    deployment: "Day, weekly, or project-based rental",
+    cta: "Request Rental Quote",
+    ctaHref: "/rentals.html",
+    imageIndex: IMAGE_ALLOCATION.services[2],
   },
   {
-    icon: Bus,
     title: "On-Site Workforce Transport",
-    description:
-      "Safe, reliable transport solutions for crews and personnel to and from project sites.",
+    outcome: "Safe, reliable transport for crews and personnel to and from project sites.",
+    deployment: "Scheduled and on-demand transport",
+    cta: "Check Deployment Availability",
+    ctaHref: "/contact.html",
+    imageIndex: IMAGE_ALLOCATION.services[3],
   },
   {
-    icon: Settings,
     title: "Project-Based Machinery Deployment",
-    description:
-      "Tailored equipment packages deployed specifically for your project scope and timeline.",
+    outcome: "Tailored equipment packages for your project scope and timeline.",
+    deployment: "Turnkey deployment to site",
+    cta: "View Equipment Capability",
+    ctaHref: "/services.html",
+    imageIndex: IMAGE_ALLOCATION.services[4],
   },
   {
-    icon: Package,
     title: "Material Handling Equipment Supply",
-    description:
-      "Forklifts, handlers, and material-moving equipment for warehousing and construction needs.",
+    outcome: "Forklifts, handlers, and material-moving equipment for construction needs.",
+    deployment: "Warehouse and site delivery",
+    cta: "Request Rental Quote",
+    ctaHref: "/rentals.html",
+    imageIndex: IMAGE_ALLOCATION.services[5],
   },
 ];
 
@@ -54,36 +60,64 @@ const Services = () => {
     <section
       id="services"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} py-24 sm:py-32`}
+      className={`bg-background ${isVisible ? "opacity-100" : ""} py-16 sm:py-20 lg:py-24`}
     >
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-            What We Do
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="text-left">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-slate-500">
+            Operational Services
           </p>
-          <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-            Core Services
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-4xl">
+            What We Deliver
           </h2>
-          <div className="mx-auto mt-5 gold-divider w-24" />
+          <div className="mt-3 h-px w-12 bg-slate-300" />
         </div>
 
-        <div className={`mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3 stagger-children ${isVisible ? "is-visible" : ""}`}>
-          {services.map((s) => (
-            <div
-              key={s.title}
-              className="card-glow group rounded-lg border border-border bg-card p-8"
-            >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-md bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-accent-foreground">
-                <s.icon size={24} />
-              </div>
-              <h3 className="font-serif text-xl font-semibold text-foreground">
-                {s.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                {s.description}
-              </p>
-            </div>
-          ))}
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+          {services.map((s) => {
+            const img = getHapyjoImage(s.imageIndex);
+            return (
+              <article
+                key={s.title}
+                className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-colors hover:border-slate-400"
+              >
+                {img && (
+                  <div className="w-full overflow-hidden rounded-t-xl">
+                    <img
+                      src={img}
+                      alt=""
+                      className="h-[180px] w-full object-cover md:h-[200px] lg:h-[220px]"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <div className="flex h-full flex-col justify-between p-5">
+                  <div>
+                    <h3 className="text-left text-base font-semibold text-slate-900 md:text-lg">
+                      {s.title}
+                    </h3>
+                    <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">
+                      {s.deployment}
+                    </p>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                      {s.outcome}
+                    </p>
+                    <div className="mt-5 border-t border-slate-200 pt-3">
+                      <span className="text-xs text-slate-500">
+                        Deployment Available
+                      </span>
+                      <a
+                        href={s.ctaHref}
+                        className="mt-4 block text-sm font-medium text-slate-900 underline-offset-4 hover:underline"
+                      >
+                        {s.cta}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

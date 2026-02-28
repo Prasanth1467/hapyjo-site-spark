@@ -1,49 +1,31 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   INDUSTRIAL UX — Visual Trust System
+   Deep navy, warm stone/sand, steel gray, equipment yellow. No gradients.
+--------------------------------------------------------------------------- */
 @layer base {
   :root {
-    --background: 37 25% 96%;
-    --foreground: 0 0% 17%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 17%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 17%;
-
-    --primary: 216 75% 15%;
-    --primary-foreground: 37 25% 96%;
-
-    --secondary: 37 18% 92%;
-    --secondary-foreground: 0 0% 17%;
-
-    --muted: 0 0% 90%;
-    --muted-foreground: 0 0% 40%;
-
-    --accent: 41 47% 59%;
-    --accent-foreground: 216 75% 15%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 41 47% 59%;
-
-    --radius: 0.375rem;
-
-    --sidebar-background: 216 75% 15%;
-    --sidebar-foreground: 37 25% 96%;
-    --sidebar-primary: 41 47% 59%;
-    --sidebar-primary-foreground: 216 75% 15%;
-    --sidebar-accent: 216 60% 22%;
-    --sidebar-accent-foreground: 37 25% 96%;
-    --sidebar-border: 216 50% 25%;
-    --sidebar-ring: 41 47% 59%;
+    --background: 40 20% 97%;
+    --foreground: 220 25% 12%;
+    --primary: 220 45% 14%;
+    --primary-foreground: 40 25% 97%;
+    --secondary: 38 18% 92%;
+    --muted: 220 10% 92%;
+    --accent: 45 55% 48%;
+    --border: 220 12% 88%;
+    --radius: 12px;
+    /* Industrial palette */
+    --navy: 220 45% 12%;
+    --navy-light: 220 35% 18%;
+    --stone: 38 18% 94%;
+    --stone-dark: 38 12% 85%;
+    --steel: 220 8% 55%;
+    --equipment-yellow: 45 55% 48%;
   }
 }
 
@@ -53,88 +35,211 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 }
 
-@layer utilities {
-  .font-serif {
-    font-family: 'Playfair Display', serif;
-  }
-  .font-sans {
-    font-family: 'Inter', sans-serif;
-  }
+/* Section & container — UX spacing system */
+.section-industrial,
+.section-classic {
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
-/* Scroll-triggered fade-in animation */
-.fade-in-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+.container-industrial,
+.container-classic {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
-.fade-in-section.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Cards: 32px spacing, 12px radius, minimal hover */
+.card-industrial {
+  border-radius: 12px;
+  padding: 32px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.card-industrial:hover {
+  background-color: hsl(var(--stone));
+  border-color: hsl(var(--stone-dark));
 }
 
-/* Staggered children animation */
-.stagger-children.is-visible > * {
-  opacity: 0;
-  animation: fade-in-up 0.7s ease-out forwards;
+/* ---------------------------------------------------------------------------
+   Operational CTA system — action triggers
+   Dark background, white text, 12px radius, min-height 52px, strong contrast.
+--------------------------------------------------------------------------- */
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.75rem;
+  background-color: hsl(var(--navy));
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  border: 2px solid hsl(var(--navy));
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
-.stagger-children.is-visible > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children.is-visible > *:nth-child(2) { animation-delay: 80ms; }
-.stagger-children.is-visible > *:nth-child(3) { animation-delay: 160ms; }
-.stagger-children.is-visible > *:nth-child(4) { animation-delay: 240ms; }
-.stagger-children.is-visible > *:nth-child(5) { animation-delay: 320ms; }
-.stagger-children.is-visible > *:nth-child(6) { animation-delay: 400ms; }
-
-@keyframes fade-in-up {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
+a.btn-cta {
+  cursor: pointer;
 }
-
-/* Gold underline hover effect */
-.gold-underline {
-  position: relative;
-  display: inline-block;
+button.btn-cta {
+  font-family: inherit;
 }
-.gold-underline::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -2px;
-  left: 0;
-  background: hsl(41 47% 59%);
-  transition: width 0.3s ease;
-}
-.gold-underline:hover::after {
-  width: 100%;
+.btn-cta:hover {
+  background-color: hsl(var(--navy-light));
+  border-color: hsl(var(--navy-light));
+  color: #fff;
 }
 
-/* Smooth scrolling */
+/* Primary CTA on dark backgrounds (hero, deployment section): classic visible button */
+.btn-cta-on-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.75rem;
+  background-color: #fff;
+  color: #0f172a;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn-cta-on-dark:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* Secondary: outline on dark (hero), same size */
+.btn-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.75rem;
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-cta-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+}
+
+/* Legacy aliases for compatibility */
+.btn-deployment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.75rem;
+  background-color: hsl(var(--navy));
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  border: 2px solid hsl(var(--navy));
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-deployment:hover {
+  background-color: hsl(var(--navy-light));
+  border-color: hsl(var(--navy-light));
+  color: #fff;
+}
+.btn-deployment-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 1.75rem;
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-deployment-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+}
+.btn-deployment-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  background-color: hsl(var(--navy));
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 12px;
+  border: 2px solid hsl(var(--navy));
+  text-decoration: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-deployment-dark:hover {
+  background-color: hsl(var(--navy-light));
+  border-color: hsl(var(--navy-light));
+  color: #fff;
+}
+
+/* Divider — steel, no gold */
+.divider-industrial {
+  height: 1px;
+  background: hsl(var(--steel) / 0.4);
+  max-width: 4rem;
+}
+
+/* Image treatment — no glossy */
+.image-industrial {
+  filter: contrast(1.02) brightness(1);
+}
+
 html {
   scroll-behavior: smooth;
 }
-
-/* Card hover glow */
-.card-glow {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.card-glow:hover {
-  box-shadow: 0 20px 40px -15px hsl(41 47% 59% / 0.15);
-  transform: translateY(-4px) scale(1.03);
-}
-
-/* Thin gold divider */
-.gold-divider {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, hsl(41 47% 59% / 0.5), transparent);
+section {
+  scroll-margin-top: 100px;
 }

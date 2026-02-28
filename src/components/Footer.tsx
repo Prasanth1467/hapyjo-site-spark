@@ -1,44 +1,99 @@
-const footerLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Rentals", href: "#rentals" },
-  { label: "Industries", href: "#industries" },
-  { label: "Contact", href: "#contact" },
+import { COMPANY } from "@/lib/constants";
+
+const logoImg = new URL("../assets/Hapyjoimage.png", import.meta.url).href;
+
+const footerNavLinks = [
+  { label: "About", href: "/about.html" },
+  { label: "Services", href: "/services.html" },
+  { label: "Rentals", href: "/rentals.html" },
+  { label: "Industries", href: "/industries.html" },
+  { label: "Gallery", href: "/gallery.html" },
+  { label: "Contact", href: "/contact.html" },
 ];
 
 const Footer = () => {
   return (
-    <footer className="bg-primary py-16">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+    <footer className="bg-slate-900 text-slate-300 py-16 sm:py-20">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <a
+          href="/index.html"
+          className="mb-10 flex shrink-0 justify-center lg:justify-start"
+          aria-label="HapyJo Ltd home"
+        >
+          <img
+            src={logoImg}
+            alt={COMPANY.name}
+            className="h-10 w-auto sm:h-11"
+            width={140}
+            height={44}
+          />
+        </a>
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Column 1: Operational Address */}
           <div>
-            <p className="font-serif text-2xl font-bold text-primary-foreground">HAPYJO</p>
-            <p className="mt-1 text-sm font-medium uppercase tracking-wider text-accent">
-              Site &amp; Fleet Control
-            </p>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200 mb-4">
+              Operational Address
+            </h3>
+            <address className="not-italic space-y-1 text-sm">
+              <p>{COMPANY.address.country}</p>
+              <p>{COMPANY.address.province}</p>
+              <p>{COMPANY.address.district}</p>
+              <p>{COMPANY.address.sector}</p>
+            </address>
           </div>
-          <div className="flex flex-wrap justify-center gap-8">
-            {footerLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="gold-underline text-sm text-primary-foreground/60 transition-colors hover:text-accent"
-              >
-                {l.label}
-              </a>
-            ))}
+
+          {/* Column 2: Corporate Support */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200 mb-4">
+              Corporate Support
+            </h3>
+            <div className="space-y-2 text-sm">
+              <p>
+                <a
+                  href={`mailto:${COMPANY.email}`}
+                  className="transition-colors hover:text-white"
+                >
+                  {COMPANY.email}
+                </a>
+              </p>
+              <p>
+                <a
+                  href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
+                  className="transition-colors hover:text-white"
+                >
+                  {COMPANY.phone}
+                </a>
+              </p>
+            </div>
+          </div>
+
+          {/* Column 3: Navigation */}
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-wider text-slate-200 mb-4">
+              Navigation
+            </h3>
+            <nav aria-label="Footer navigation">
+              <ul className="space-y-2">
+                {footerNavLinks.map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      className="text-sm transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
 
-        <div className="mt-10 h-px bg-primary-foreground/10" />
-
-        <div className="mt-8 flex flex-col items-center gap-4 text-center md:flex-row md:justify-between">
-          <div className="text-xs text-primary-foreground/40 space-y-1">
-            <p>Corporate Support: contact@hapyjo.com</p>
-            <p>+91 90000 00000</p>
-          </div>
-          <p className="text-xs text-primary-foreground/40">
-            © {new Date().getFullYear()} HapyJo Ltd. All Rights Reserved.
+        {/* Section divider */}
+        <div className="mt-12 pt-6 border-t border-slate-800">
+          {/* Bottom trust bar: centered copyright */}
+          <p className="text-center text-xs text-slate-500">
+            © {new Date().getFullYear()} {COMPANY.name}. All Rights Reserved.
           </p>
         </div>
       </div>

@@ -1,15 +1,11 @@
 import { useFadeInOnScroll } from "@/hooks/use-fade-in";
-import { Check } from "lucide-react";
-import excavatorWork from "@/assets/excavator-work.jpg";
 
-const points = [
-  "Maintained Equipment Fleet",
-  "Skilled Certified Operators",
-  "Reliable Site Deployment",
-  "On-Time Equipment Availability",
-  "Scalable Workforce Support",
-  "Project-Specific Logistics",
-  "Safety-Compliant Operations",
+const badges = [
+  { title: "Safety Compliance", description: "Operations meet safety and compliance standards." },
+  { title: "Maintained Fleet", description: "Regular maintenance and inspection for reliability." },
+  { title: "Skilled Operators", description: "Certified operators for equipment and site work." },
+  { title: "Reliable Site Delivery", description: "On-time deployment and site logistics support." },
+  { title: "Scalable Workforce", description: "Workforce and equipment scale to project needs." },
 ];
 
 const WhyChoose = () => {
@@ -18,40 +14,33 @@ const WhyChoose = () => {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} bg-primary py-24 sm:py-32`}
+      className={`bg-[hsl(var(--navy))] py-16 sm:py-20 lg:py-24 ${isVisible ? "opacity-100" : ""}`}
     >
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="grid items-center gap-16 lg:grid-cols-2">
-          <div>
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-              Our Advantage
-            </p>
-            <h2 className="font-serif text-3xl font-bold text-primary-foreground sm:text-4xl md:text-5xl">
-              Why Choose Hapyjo
-            </h2>
-            <div className="mt-5 h-px w-24 bg-accent/50" />
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-equipment-yellow">
+            Our Advantage
+          </p>
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+            Why Choose HapyJo
+          </h2>
+          <div className="mx-auto mt-4 h-px w-16 bg-white/30" />
+        </div>
 
-            <div className="mt-10 space-y-4">
-              {points.map((p) => (
-                <div key={p} className="flex items-center gap-4">
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent">
-                    <Check size={16} strokeWidth={3} />
-                  </div>
-                  <span className="text-base text-primary-foreground/85">{p}</span>
-                </div>
-              ))}
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8 xl:grid-cols-5">
+          {badges.map((b) => (
+            <div
+              key={b.title}
+              className="rounded-xl border-l-4 border-equipment-yellow bg-white/5 py-4 pl-4 pr-4 transition-[background-color] hover:bg-white/10 sm:py-6 sm:pl-6 sm:pr-6"
+            >
+              <h3 className="font-heading text-base font-bold text-white sm:text-lg">
+                {b.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/80">
+                {b.description}
+              </p>
             </div>
-          </div>
-
-          <div className="relative overflow-hidden rounded-lg">
-            <img
-              src={excavatorWork}
-              alt="Excavator working on construction site"
-              className="h-auto w-full object-cover rounded-lg"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-primary-foreground/5" />
-          </div>
+          ))}
         </div>
       </div>
     </section>

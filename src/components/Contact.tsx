@@ -1,16 +1,6 @@
 import { useFadeInOnScroll } from "@/hooks/use-fade-in";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Mail, Phone, MapPin } from "lucide-react";
+import { COMPANY } from "@/lib/constants";
 
 const Contact = () => {
   const { ref, isVisible } = useFadeInOnScroll();
@@ -19,94 +9,136 @@ const Contact = () => {
     <section
       id="contact"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} bg-secondary py-24 sm:py-32`}
+      className={`bg-background py-16 sm:py-20 lg:py-24 ${isVisible ? "opacity-100" : ""}`}
     >
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
-            Get in Touch
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.25em] text-equipment-yellow">
+            Deployment &amp; Support
           </p>
-          <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-            Contact Us
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+            Request Project Logistics Plan
           </h2>
-          <div className="mx-auto mt-5 gold-divider w-24" />
+          <div className="divider-industrial mx-auto mt-4" />
         </div>
 
-        <div className="mt-16 grid gap-16 lg:grid-cols-2">
+        <div className="mt-10 grid gap-8 sm:mt-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <h3 className="font-serif text-2xl font-semibold text-foreground">HapyJo Ltd</h3>
-            <p className="mt-1 text-sm font-medium uppercase tracking-wider text-accent">Site &amp; Fleet Control</p>
+            <h3 className="font-heading text-2xl font-bold text-foreground">{COMPANY.name}</h3>
+            <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-equipment-yellow">
+              {COMPANY.tagline}
+            </p>
             <p className="mt-6 max-w-md text-muted-foreground leading-relaxed">
               Ready to bring control and reliability to your operations?
-              Reach out and let us discuss how Hapyjo can support your next project.
+              Reach out and let us discuss how HapyJo can support your next project.
             </p>
             <div className="mt-8 space-y-4">
               <div className="flex items-center gap-3 text-muted-foreground">
-                <Mail size={18} className="text-accent" />
-                <span>contact@hapyjo.com</span>
+                <Mail size={18} className="text-steel shrink-0" />
+                <a href={`mailto:${COMPANY.email}`} className="font-medium text-foreground hover:underline">
+                  {COMPANY.email}
+                </a>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground">
-                <Phone size={18} className="text-accent" />
-                <span>+91 90000 00000</span>
+                <Phone size={18} className="text-steel shrink-0" />
+                <a href={`tel:${COMPANY.phone.replace(/\s/g, "")}`} className="font-medium text-foreground hover:underline">
+                  {COMPANY.phone}
+                </a>
               </div>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <MapPin size={18} className="text-accent" />
-                <span>Kigali, Rwanda</span>
+              <div className="flex items-start gap-3 text-muted-foreground">
+                <MapPin size={18} className="text-steel shrink-0 mt-0.5" />
+                <span>
+                  {COMPANY.address.country}, {COMPANY.address.province}, {COMPANY.address.district}, {COMPANY.address.sector}, {COMPANY.address.location}
+                </span>
               </div>
             </div>
           </div>
 
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="space-y-5 rounded-lg border border-border bg-card p-8"
+            className="rounded-xl border border-border bg-card p-8"
           >
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="fullName">Full Name</Label>
-                <Input id="fullName" placeholder="Your name" className="bg-background" />
+                <label htmlFor="fullName" className="text-sm font-semibold text-foreground">
+                  Full Name
+                </label>
+                <input
+                  id="fullName"
+                  placeholder="Your name"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="company">Company Name</Label>
-                <Input id="company" placeholder="Your company" className="bg-background" />
+                <label htmlFor="company" className="text-sm font-semibold text-foreground">
+                  Company Name
+                </label>
+                <input
+                  id="company"
+                  placeholder="Your company"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                />
               </div>
             </div>
-            <div className="grid gap-5 sm:grid-cols-2">
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
-                <Input id="phone" type="tel" placeholder="+250 ..." className="bg-background" />
+                <label htmlFor="phone" className="text-sm font-semibold text-foreground">
+                  Phone Number
+                </label>
+                <input
+                  id="phone"
+                  type="tel"
+                  placeholder="+250 ..."
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="you@company.com" className="bg-background" />
+                <label htmlFor="email" className="text-sm font-semibold text-foreground">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@company.com"
+                  className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                />
               </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="service">Service Required</Label>
-              <Select>
-                <SelectTrigger className="bg-background">
-                  <SelectValue placeholder="Select a service" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="site-support">Construction Site Support</SelectItem>
-                  <SelectItem value="fleet">Fleet Logistics Management</SelectItem>
-                  <SelectItem value="rentals">Heavy Equipment Rentals</SelectItem>
-                  <SelectItem value="transport">Workforce Transport</SelectItem>
-                  <SelectItem value="machinery">Machinery Deployment</SelectItem>
-                  <SelectItem value="material">Material Handling</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="mt-5 space-y-2">
+              <label htmlFor="service" className="text-sm font-semibold text-foreground">
+                Service Required
+              </label>
+              <select
+                id="service"
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+              >
+                <option value="">Select a service</option>
+                <option value="site-support">Construction Site Support</option>
+                <option value="fleet">Fleet Logistics Management</option>
+                <option value="rentals">Heavy Equipment Rentals</option>
+                <option value="transport">Workforce Transport</option>
+                <option value="machinery">Machinery Deployment</option>
+                <option value="material">Material Handling</option>
+                <option value="other">Other</option>
+              </select>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="message">Message</Label>
-              <Textarea id="message" placeholder="Tell us about your project..." rows={4} className="bg-background" />
+            <div className="mt-5 space-y-2">
+              <label htmlFor="message" className="text-sm font-semibold text-foreground">
+                Message
+              </label>
+              <textarea
+                id="message"
+                placeholder="Tell us about your project..."
+                rows={4}
+                className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+              />
             </div>
-            <Button
+            <button
               type="submit"
-              className="w-full bg-accent text-accent-foreground hover:bg-accent/90 py-5 text-sm font-semibold uppercase tracking-wider"
+              className="btn-cta mt-6 w-full min-w-0"
             >
-              Send Message
-            </Button>
+              Request Project Logistics Plan
+            </button>
           </form>
         </div>
       </div>

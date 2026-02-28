@@ -1,101 +1,117 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
+const logoImg = new URL("../assets/Hapyjoimage.png", import.meta.url).href;
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Rentals", href: "#rentals" },
-  { label: "Industries", href: "#industries" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/about.html" },
+  { label: "Services", href: "/services.html" },
+  { label: "Rentals", href: "/rentals.html" },
+  { label: "Industries", href: "/industries.html" },
+  { label: "Blog", href: "/blog.html" },
+  { label: "Gallery", href: "/gallery.html" },
+  { label: "Contact", href: "/contact.html" },
 ];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   return (
     <>
       <nav
-        className={`sticky top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "bg-background/95 backdrop-blur-md shadow-sm py-3"
-            : "bg-transparent py-5"
-        }`}
+        className="sticky top-0 z-[1000] border-b border-stone-dark bg-stone py-3 sm:py-4"
+        aria-label="Main navigation"
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6">
-          <a href="#" className="font-serif text-2xl font-bold tracking-tight text-primary transition-colors hover:text-accent">
-            HAPYJO
+        <div className="mx-auto flex max-w-[1200px] flex-shrink-0 items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+          <a
+            href="/index.html"
+            className="flex shrink-0 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-navy focus-visible:ring-offset-2 rounded"
+            aria-label="HapyJo Ltd home"
+          >
+            <img
+              src={logoImg}
+              alt="HapyJo Ltd"
+              className="h-11 w-auto sm:h-12 md:h-14 lg:h-[3.5rem]"
+              width={180}
+              height={56}
+              fetchPriority="high"
+            />
           </a>
 
-          {/* Desktop links */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-6 lg:gap-8 xl:flex">
             {navLinks.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="gold-underline text-sm font-medium uppercase tracking-wider text-foreground/70 transition-colors hover:text-foreground"
+                className="whitespace-nowrap text-sm font-semibold uppercase tracking-wider text-steel transition-colors hover:text-navy"
               >
                 {l.label}
               </a>
             ))}
-            <Button
-              asChild
-              className="bg-accent text-accent-foreground hover:bg-accent/90 rounded px-7 py-5 text-sm font-semibold uppercase tracking-wider"
+            <a
+              href="/contact.html"
+              className="btn-cta shrink-0 whitespace-nowrap text-center"
             >
-              <a href="#contact">Get in Touch</a>
-            </Button>
+              Request Equipment Deployment
+            </a>
           </div>
 
-          {/* Mobile toggle */}
           <button
+            type="button"
             onClick={() => setOpen(true)}
-            className="md:hidden text-foreground p-1"
+            className="flex shrink-0 p-2 text-navy xl:hidden"
             aria-label="Open menu"
           >
-            <Menu size={26} />
+            <Menu size={24} strokeWidth={2} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile slide-in drawer */}
       {open && (
-        <div className="fixed inset-0 z-[100]" onClick={() => setOpen(false)}>
-          <div className="absolute inset-0 bg-primary/40 backdrop-blur-sm" />
+        <div className="fixed inset-0 z-[1001]" onClick={() => setOpen(false)}>
+          <div className="absolute inset-0 bg-navy/20" />
           <div
-            className="absolute right-0 top-0 h-full w-72 bg-background shadow-2xl animate-slide-in-right"
+            className="absolute right-0 top-0 flex h-full w-full max-w-sm flex-col border-l border-stone-dark bg-stone shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-6 border-b border-border">
-              <span className="font-serif text-xl font-bold text-primary">HAPYJO</span>
-              <button onClick={() => setOpen(false)} aria-label="Close menu">
-                <X size={24} className="text-foreground" />
+            <div className="flex items-center justify-between border-b border-stone-dark p-4 sm:p-6">
+              <a href="/index.html" onClick={() => setOpen(false)} className="flex shrink-0">
+                <img
+                  src={logoImg}
+                  alt="HapyJo Ltd"
+                  className="h-10 w-auto sm:h-11"
+                  width={140}
+                  height={44}
+                />
+              </a>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label="Close menu"
+                className="p-2 text-steel hover:text-navy"
+              >
+                <X size={24} strokeWidth={2} />
               </button>
             </div>
-            <div className="p-6 flex flex-col gap-0">
+            <div className="flex flex-1 flex-col gap-0 overflow-y-auto p-4 sm:p-6">
               {navLinks.map((l) => (
                 <a
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="gold-underline block py-3 text-base font-medium uppercase tracking-wider text-foreground/70 transition-colors hover:text-foreground"
+                  className="block border-b border-stone-dark py-4 text-base font-semibold uppercase tracking-wider text-navy"
                 >
                   {l.label}
                 </a>
               ))}
               <div className="pt-4">
-                <Button
-                  asChild
-                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90 py-5 text-sm font-semibold uppercase tracking-wider"
+                <a
+                  href="/contact.html"
+                  onClick={() => setOpen(false)}
+                  className="btn-cta flex w-full justify-center"
                 >
-                  <a href="#contact" onClick={() => setOpen(false)}>Get in Touch</a>
-                </Button>
+                  Request Equipment Deployment
+                </a>
               </div>
             </div>
           </div>

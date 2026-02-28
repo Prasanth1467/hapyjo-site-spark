@@ -1,70 +1,29 @@
-import { useEffect, useState, useRef } from "react";
-import { useFadeInOnScroll } from "@/hooks/use-fade-in";
-import { Users, Truck, Briefcase, Calendar } from "lucide-react";
+import { FLEET_STATS } from "@/lib/constants";
 
-const stats = [
-  { icon: Users, value: 128, label: "Employees", suffix: "" },
-  { icon: Truck, value: 64, label: "Active Fleet Units", suffix: "" },
-  { icon: Briefcase, value: 210, label: "Projects Supported", suffix: "+" },
-  { icon: Calendar, value: 8, label: "Years in Operation", suffix: "" },
+const items = [
+  { value: FLEET_STATS.machines, label: "Machines Available" },
+  { value: FLEET_STATS.trucks, label: "Transport Trucks" },
+  { value: "24/7", label: "Deployment Ready Today" },
+  { value: "24/7", label: "Active Site Support" },
 ];
 
-function useCounter(end: number, isVisible: boolean, duration = 2000) {
-  const [count, setCount] = useState(0);
-  const started = useRef(false);
-
-  useEffect(() => {
-    if (!isVisible || started.current) return;
-    started.current = true;
-    const steps = 60;
-    const increment = end / steps;
-    let current = 0;
-    const interval = setInterval(() => {
-      current += increment;
-      if (current >= end) {
-        setCount(end);
-        clearInterval(interval);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-    return () => clearInterval(interval);
-  }, [isVisible, end, duration]);
-
-  return count;
-}
-
-const StatCard = ({ icon: Icon, value, label, suffix, isVisible }: {
-  icon: typeof Users; value: number; label: string; suffix: string; isVisible: boolean;
-}) => {
-  const count = useCounter(value, isVisible);
-  return (
-    <div className="text-center p-8">
-      <div className="mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full border border-accent/30 text-accent">
-        <Icon size={26} />
-      </div>
-      <p className="font-serif text-4xl font-bold text-primary sm:text-5xl">
-        {count}{suffix}
-      </p>
-      <p className="mt-2 text-sm font-medium uppercase tracking-wider text-muted-foreground">
-        {label}
-      </p>
-    </div>
-  );
-};
-
 const Stats = () => {
-  const { ref, isVisible } = useFadeInOnScroll();
-
   return (
-    <section
-      ref={ref as React.RefObject<HTMLElement>}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} bg-secondary py-20 sm:py-24`}
-    >
-      <div className="mx-auto max-w-7xl px-6">
-        <div className={`grid gap-8 sm:grid-cols-2 lg:grid-cols-4 stagger-children ${isVisible ? "is-visible" : ""}`}>
-          {stats.map((s) => (
-            <StatCard key={s.label} {...s} isVisible={isVisible} />
+    <section className="border-y border-stone-dark bg-stone py-6 sm:py-8" aria-label="Fleet credibility">
+      <div className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4 md:gap-8">
+          {items.map(({ value, label }) => (
+            <div
+              key={label}
+              className="border-steel/20 text-center md:border-r md:border-r-steel/30 md:pr-8 last:md:border-r-0 last:md:pr-0"
+            >
+              <p className="font-heading text-xl font-bold text-navy sm:text-2xl md:text-3xl">
+                {value}
+              </p>
+              <p className="mt-1 text-[10px] font-semibold uppercase leading-tight tracking-wider text-steel sm:text-xs">
+                {label}
+              </p>
+            </div>
           ))}
         </div>
       </div>
