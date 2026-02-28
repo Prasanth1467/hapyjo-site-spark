@@ -1,24 +1,21 @@
 import { useFadeInOnScroll } from "@/hooks/use-fade-in";
-import { Button } from "@/components/ui/button";
-import { Clock, Shield, TrendingUp } from "lucide-react";
-import rentalsFleet from "@/assets/rentals-fleet.jpg";
+import {
+  Truck,
+  Mountain,
+  Cog,
+  Car,
+  Container,
+  Anchor,
+} from "lucide-react";
+import fleetTrucks from "@/assets/fleet-trucks.jpg";
 
-const features = [
-  {
-    icon: Clock,
-    title: "Flexible Terms",
-    description: "Rent by the day or hour — scaled to your project timeline and budget.",
-  },
-  {
-    icon: Shield,
-    title: "Professional Fleet",
-    description: "Well-maintained trucks and heavy machinery, ready for demanding site conditions.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Built for Scale",
-    description: "From single-vehicle hires to multi-unit fleet deployments for large-scale projects.",
-  },
+const equipment = [
+  { icon: Truck, title: "Dump Trucks", description: "Heavy-duty hauling for earthworks, mining, and road construction projects." },
+  { icon: Mountain, title: "Excavators", description: "Versatile digging and earthmoving for foundations, trenching, and demolition." },
+  { icon: Cog, title: "Wheel Loaders", description: "Efficient material loading and site clearing for large-scale operations." },
+  { icon: Car, title: "Site Utility Vehicles", description: "Rugged site transport for personnel, tools, and light materials." },
+  { icon: Container, title: "Transit Mixers", description: "On-demand concrete mixing and delivery for construction pours." },
+  { icon: Anchor, title: "Hydraulic Cranes", description: "Heavy lifting and positioning for structural and industrial applications." },
 ];
 
 const Rentals = () => {
@@ -28,75 +25,46 @@ const Rentals = () => {
     <section
       id="rentals"
       ref={ref as React.RefObject<HTMLElement>}
-      className={`fade-in-section ${isVisible ? "is-visible" : ""} py-24 sm:py-32`}
+      className={`fade-in-section ${isVisible ? "is-visible" : ""} bg-secondary py-24 sm:py-32`}
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-16 lg:grid-cols-2">
-          {/* Left — Content */}
           <div>
-            <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
-              Vehicle &amp; Machinery Rentals
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-accent">
+              Equipment Rentals
             </p>
             <h2 className="font-serif text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
-              The Fleet Your Projects Demand
+              Vehicle &amp; Machinery Rentals
             </h2>
-            <div className="mt-4 h-px w-16 bg-accent" />
+            <div className="mt-5 gold-divider w-24" />
             <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Access trucks, earthmoving equipment, and construction machinery on flexible
-              rental terms. Whether you need a single vehicle for a day or an entire fleet
-              for a multi-month project, Hapyjo delivers — professionally maintained,
-              competitively priced, and ready to work.
+              Professional-grade vehicles and heavy machinery available on flexible day
+              or hourly terms. Our maintained fleet is ready for construction, logistics,
+              and industrial site work.
             </p>
-
-            <div className="mt-10 space-y-6">
-              {features.map((f) => (
-                <div key={f.title} className="flex gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent/10 text-accent">
-                    <f.icon size={20} />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground">{f.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{f.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <Button
-              asChild
-              className="mt-10 bg-accent text-accent-foreground hover:bg-accent/90 px-8 py-5 text-base font-semibold shadow-lg shadow-accent/20 transition-all hover:shadow-xl hover:shadow-accent/25"
-            >
-              <a href="#contact">Enquire About Rentals</a>
-            </Button>
-          </div>
-
-          {/* Right — Image */}
-          <div className="relative">
-            <div className="overflow-hidden rounded-lg">
+            <div className="relative mt-8 overflow-hidden rounded-lg">
               <img
-                src={rentalsFleet}
-                alt="Fleet of heavy-duty trucks lined up at golden hour"
+                src={fleetTrucks}
+                alt="Fleet of heavy-duty trucks lined up at depot"
                 className="h-auto w-full object-cover rounded-lg"
                 loading="lazy"
               />
-              <div className="absolute inset-0 rounded-lg ring-1 ring-inset ring-foreground/5" />
             </div>
-            {/* Decorative accent frame */}
-            <div className="absolute -bottom-4 -right-4 h-full w-full rounded-lg border-2 border-accent/20 -z-10" />
-            {/* Stats overlay */}
-            <div className="absolute -bottom-6 -left-6 rounded-lg bg-primary p-6 shadow-2xl">
-              <div className="flex gap-6">
-                <div className="text-center">
-                  <p className="font-serif text-2xl font-bold text-accent">24/7</p>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-primary-foreground/60">Availability</p>
+          </div>
+
+          <div className={`grid gap-6 sm:grid-cols-2 stagger-children ${isVisible ? "is-visible" : ""}`}>
+            {equipment.map((e) => (
+              <div
+                key={e.title}
+                className="card-glow rounded-lg border border-border bg-card p-6"
+              >
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-md bg-accent/10 text-accent">
+                  <e.icon size={20} />
                 </div>
-                <div className="h-auto w-px bg-primary-foreground/10" />
-                <div className="text-center">
-                  <p className="font-serif text-2xl font-bold text-accent">RWF</p>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-primary-foreground/60">Pricing</p>
-                </div>
+                <h3 className="font-serif text-lg font-semibold text-foreground">{e.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{e.description}</p>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
