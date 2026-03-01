@@ -1,9 +1,38 @@
+import { useRef, useState } from "react";
 import { useFadeInOnScroll } from "@/hooks/use-fade-in";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { COMPANY } from "@/lib/constants";
+import { submitContactForm, type ContactFormData } from "@/lib/contact-form";
 
 const Contact = () => {
   const { ref, isVisible } = useFadeInOnScroll();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = formRef.current;
+    if (!form) return;
+    const data: ContactFormData = {
+      fullName: (form.elements.namedItem("fullName") as HTMLInputElement).value.trim(),
+      company: (form.elements.namedItem("company") as HTMLInputElement).value.trim(),
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value.trim(),
+      email: (form.elements.namedItem("email") as HTMLInputElement).value.trim(),
+      service: (form.elements.namedItem("service") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim(),
+    };
+    setStatus("sending");
+    setErrorMessage("");
+    const result = await submitContactForm(data);
+    if (result.ok) {
+      setStatus("success");
+      form.reset();
+    } else {
+      setStatus("error");
+      setErrorMessage(result.error ?? "Something went wrong.");
+    }
+  };
 
   return (
     <section
@@ -55,9 +84,20 @@ const Contact = () => {
           </div>
 
           <form
-            onSubmit={(e) => e.preventDefault()}
+            ref={formRef}
+            onSubmit={handleSubmit}
             className="rounded-xl border border-border bg-card p-8"
           >
+            {status === "success" && (
+              <div className="mb-6 rounded-xl bg-green-50 dark:bg-green-950/30 px-4 py-3 text-sm font-medium text-green-800 dark:text-green-200">
+                Thanks! Your request has been sent. We&apos;ll get back to you at the email you provided.
+              </div>
+            )}
+            {status === "error" && (
+              <div className="mb-6 rounded-xl bg-red-50 dark:bg-red-950/30 px-4 py-3 text-sm font-medium text-red-800 dark:text-red-200">
+                {errorMessage}
+              </div>
+            )}
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <label htmlFor="fullName" className="text-sm font-semibold text-foreground">
@@ -65,8 +105,10 @@ const Contact = () => {
                 </label>
                 <input
                   id="fullName"
+                  name="fullName"
                   placeholder="Your name"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                  required
                 />
               </div>
               <div className="space-y-2">
@@ -75,6 +117,7 @@ const Contact = () => {
                 </label>
                 <input
                   id="company"
+                  name="company"
                   placeholder="Your company"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
                 />
@@ -87,6 +130,7 @@ const Contact = () => {
                 </label>
                 <input
                   id="phone"
+                  name="phone"
                   type="tel"
                   placeholder="+250 ..."
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
@@ -98,9 +142,11 @@ const Contact = () => {
                 </label>
                 <input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="you@company.com"
                   className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
+                  required
                 />
               </div>
             </div>
@@ -110,6 +156,7 @@ const Contact = () => {
               </label>
               <select
                 id="service"
+                name="service"
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
               >
                 <option value="">Select a service</option>
@@ -128,6 +175,7 @@ const Contact = () => {
               </label>
               <textarea
                 id="message"
+                name="message"
                 placeholder="Tell us about your project..."
                 rows={4}
                 className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm"
@@ -135,9 +183,10 @@ const Contact = () => {
             </div>
             <button
               type="submit"
-              className="btn-cta mt-6 w-full min-w-0"
+              className="btn-cta mt-6 w-full min-w-0 disabled:opacity-60 disabled:pointer-events-none"
+              disabled={status === "sending"}
             >
-              Request Project Logistics Plan
+              {status === "sending" ? "Sending…" : "Request Project Logistics Plan"}
             </button>
           </form>
         </div>

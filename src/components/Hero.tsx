@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { FLEET_STATS } from "@/lib/constants";
 
 const CLOUDINARY_VIDEO =
@@ -18,6 +18,7 @@ type VideoSource = "cloudinary" | "local" | "image";
 const Hero = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [source, setSource] = useState<VideoSource>("cloudinary");
+  const userInteractedRef = useRef(false);
 
   const videoSrc = source === "cloudinary" ? CLOUDINARY_VIDEO : source === "local" ? localVideo : null;
 
@@ -25,21 +26,54 @@ const Hero = () => {
     setSource((prev) => (prev === "cloudinary" ? "local" : "image"));
   };
 
+  const tryPlay = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || source === "image") return;
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "true");
+    video.play().catch(() => {});
+  }, [source]);
+
   useEffect(() => {
     if (source === "image") return;
     const video = videoRef.current;
     if (!video) return;
-    const play = () => {
-      video.play().catch(() => {});
-    };
+    video.muted = true;
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "true");
+    const play = () => tryPlay();
     play();
     video.addEventListener("loadeddata", play);
     video.addEventListener("canplay", play);
+    video.addEventListener("canplaythrough", play);
+    video.addEventListener("loadedmetadata", play);
     return () => {
       video.removeEventListener("loadeddata", play);
       video.removeEventListener("canplay", play);
+      video.removeEventListener("canplaythrough", play);
+      video.removeEventListener("loadedmetadata", play);
     };
-  }, [source]);
+  }, [source, tryPlay]);
+
+  useEffect(() => {
+    const onInteraction = () => {
+      if (userInteractedRef.current) return;
+      userInteractedRef.current = true;
+      tryPlay();
+      document.removeEventListener("click", onInteraction);
+      document.removeEventListener("touchstart", onInteraction);
+      document.removeEventListener("keydown", onInteraction);
+    };
+    document.addEventListener("click", onInteraction, { once: true, passive: true });
+    document.addEventListener("touchstart", onInteraction, { once: true, passive: true });
+    document.addEventListener("keydown", onInteraction, { once: true });
+    return () => {
+      document.removeEventListener("click", onInteraction);
+      document.removeEventListener("touchstart", onInteraction);
+      document.removeEventListener("keydown", onInteraction);
+    };
+  }, [tryPlay]);
 
   return (
     <header className="relative min-h-[90vh] overflow-hidden bg-[hsl(var(--navy))]">
@@ -55,16 +89,20 @@ const Hero = () => {
         <video
           ref={videoRef}
           key={videoSrc}
-          src={videoSrc}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
           onError={handleVideoError}
+          onLoadedData={tryPlay}
+          onCanPlay={tryPlay}
+          onCanPlayThrough={tryPlay}
           className="absolute inset-0 h-full w-full object-cover"
           aria-hidden
-        />
+        >
+          <source src={videoSrc ?? ""} type="video/mp4" />
+        </video>
       )}
       <div className="absolute inset-0 bg-[hsl(var(--navy))]/75" aria-hidden />
 
