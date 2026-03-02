@@ -24,8 +24,6 @@ const Footer = () => {
             src={logoImg}
             alt={COMPANY.name}
             className="h-10 w-auto sm:h-11"
-            width={140}
-            height={44}
           />
         </a>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">

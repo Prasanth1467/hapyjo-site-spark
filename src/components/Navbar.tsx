@@ -32,8 +32,6 @@ const Navbar = () => {
               src={logoImg}
               alt="HapyJo Ltd"
               className="h-11 w-auto sm:h-12 md:h-14 lg:h-[3.5rem]"
-              width={180}
-              height={56}
               fetchPriority="high"
             />
           </a>
@@ -80,8 +78,6 @@ const Navbar = () => {
                   src={logoImg}
                   alt="HapyJo Ltd"
                   className="h-10 w-auto sm:h-11"
-                  width={140}
-                  height={44}
                 />
               </a>
               <button

@@ -39,11 +39,11 @@ const Industries = () => {
                 className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-[border-color,background-color] hover:border-stone-dark hover:bg-stone/50"
               >
                 {img && (
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="responsive-image-container">
                     <img
                       src={img}
                       alt={ind.title}
-                      className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.02]"
+                      className="object-cover transition-transform duration-200 group-hover:scale-[1.02] image-industrial"
                       loading="lazy"
                     />
                   </div>

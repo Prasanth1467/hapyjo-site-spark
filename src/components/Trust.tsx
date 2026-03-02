@@ -46,12 +46,12 @@ const Trust = () => {
                   return (
                     <div
                       key={idx}
-                      className="overflow-hidden rounded-xl border border-stone-dark bg-white"
+                      className="responsive-image-container border border-stone-dark bg-white"
                     >
                       <img
                         src={img}
                         alt={`${clusterLabels[key]} – HapyJo`}
-                        className="aspect-[4/3] w-full object-cover image-industrial"
+                        className="image-industrial"
                         loading="lazy"
                       />
                     </div>

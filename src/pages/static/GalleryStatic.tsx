@@ -3,7 +3,6 @@ import { useFadeInOnScroll } from "@/hooks/use-fade-in";
 import { getHapyjoImage } from "@/lib/hapyjo-images";
 import { getGalleryImageIndices } from "@/lib/image-allocation";
 import { GALLERY_IMAGES_PER_PAGE } from "@/lib/image-allocation";
-import { OptimizedImage } from "@/components/OptimizedImage";
 
 const GALLERY_PAGES = [
   "gallery.html",
@@ -36,12 +35,12 @@ export default function GalleryStatic({ page }: { page: number }) {
               const src = getHapyjoImage(index);
               if (!src) return null;
               return (
-                <div key={index} className="overflow-hidden rounded-lg border border-[#0A1F44]/10 bg-white aspect-square card-classic">
-                  <OptimizedImage
+                <div key={index} className="responsive-image-container border border-[#0A1F44]/10 bg-white card-classic">
+                  <img
                     src={src}
                     alt={`Fleet and project gallery image ${i + 1}`}
-                    aspectRatio="1"
-                    rounded="rounded-lg"
+                    loading="lazy"
+                    className="image-premium"
                   />
                 </div>
               );

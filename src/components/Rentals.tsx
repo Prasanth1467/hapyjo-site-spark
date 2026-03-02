@@ -30,9 +30,8 @@ const Rentals = () => {
             </h2>
             <div className="divider-industrial mt-4" />
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-6 sm:text-base">
-              Professional-grade vehicles and heavy machinery on flexible day or hourly terms. 
-              Our maintained fleet of {FLEET_STATS.totalFleet} units ({FLEET_STATS.machines} machines, {FLEET_STATS.trucks} trucks) 
-              is deployment-ready for construction, logistics, and industrial site work.
+              Professional-grade vehicles and heavy machinery on flexible day or hourly terms.
+              Our fleet of {FLEET_STATS.totalFleet} units is deployment-ready for construction, logistics, and industrial site work.
             </p>
           </div>
 

@@ -22,7 +22,7 @@ const Blog = () => {
           </h2>
           <div className="divider-industrial mt-4 mx-auto" />
           <p className="mt-4 max-w-2xl mx-auto text-sm text-steel sm:mt-6 sm:text-base">
-            Fleet, site control, and construction logistics expertise from HapyJo.
+            Latest insights on fleet deployment, site control, and construction logistics.
           </p>
         </header>
 
@@ -35,19 +35,19 @@ const Blog = () => {
               <a
                 key={file}
                 href={`/${file}`}
-                className="block overflow-hidden rounded-xl border border-border bg-card transition-[background-color,border-color] hover:bg-stone hover:border-stone-dark"
+                className="flex flex-col overflow-hidden rounded-xl border border-border bg-card transition-[background-color,border-color] hover:bg-stone hover:border-stone-dark"
               >
                 {previewSrc && (
-                  <div className="aspect-[16/10] overflow-hidden bg-stone">
+                  <div className="responsive-image-container bg-stone shrink-0">
                     <img
                       src={previewSrc}
                       alt={`${post.title} – HapyJo blog`}
-                      className="h-full w-full object-cover image-industrial"
+                      className="image-industrial"
                       loading="lazy"
                     />
                   </div>
                 )}
-                <div className="p-8">
+                <div className="flex flex-1 flex-col p-8 min-h-[120px]">
                   <h3 className="font-heading text-lg font-bold text-foreground">
                     {post.title}
                   </h3>

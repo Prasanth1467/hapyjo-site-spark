@@ -3,7 +3,6 @@ import { useFadeInOnScroll } from "@/hooks/use-fade-in";
 import { getHapyjoImage } from "@/lib/hapyjo-images";
 import { getBlogPostBySlug } from "@/lib/blog-posts";
 import { BLOG_STATIC_PAGES } from "@/lib/static-routes";
-import { OptimizedImage } from "@/components/OptimizedImage";
 
 export default function BlogListPage() {
   const { ref, isVisible } = useFadeInOnScroll();
@@ -17,7 +16,7 @@ export default function BlogListPage() {
             <h1 className="font-serif text-3xl font-bold text-[#2C2C2C] sm:text-4xl">Blog</h1>
             <div className="gold-divider mt-5 mx-auto" />
             <p className="mt-6 max-w-2xl mx-auto text-[#2C2C2C]/80" style={{ lineHeight: 1.7 }}>
-              Fleet, site control, and construction logistics expertise from HapyJo.
+              Practical guides and expertise on fleet deployment, site control, and construction logistics.
             </p>
           </header>
 
@@ -33,13 +32,13 @@ export default function BlogListPage() {
                   className="block rounded-lg border border-[#0A1F44]/10 bg-white overflow-hidden card-classic"
                 >
                   {previewSrc && (
-                    <div className="aspect-[16/10] overflow-hidden bg-[#F8F5F0]/50">
-                    <OptimizedImage
-                      src={previewSrc}
-                      alt={`${post.title} – HapyJo blog`}
-                      aspectRatio="16/10"
-                      rounded="rounded-none"
-                    />
+                    <div className="responsive-image-container bg-[#F8F5F0]/50">
+                      <img
+                        src={previewSrc}
+                        alt={`${post.title} – HapyJo blog`}
+                        loading="lazy"
+                        className="image-premium"
+                      />
                     </div>
                   )}
                   <div className="p-6">

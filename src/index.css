@@ -237,6 +237,51 @@ button.btn-cta {
   filter: contrast(1.02) brightness(1);
 }
 
+/* ---------------------------------------------------------------------------
+   Responsive image system — no stretch, no CLS, consistent ratio
+--------------------------------------------------------------------------- */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.responsive-image-container {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.responsive-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.blog-image-container {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.blog-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .responsive-image-container,
+  .blog-image-container {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }

@@ -36,7 +36,7 @@ export function ContactCTA() {
       </div>
       <div className="mt-8">
         <a href="/contact" className="btn-cta w-full justify-center sm:w-auto">
-          Request Equipment Deployment
+          Contact Us
         </a>
       </div>
     </div>

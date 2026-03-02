@@ -33,7 +33,12 @@ export default function BlogDetailStatic({ pageId }: { pageId: StaticPageId }) {
 
   const heroSrc = getHapyjoImage(post.heroImageIndex);
   const supportSrcs = post.supportingImageIndices.map(getHapyjoImage);
-  const [intro, fleetPara, listLabel, ...listItems] = post.content;
+  const listLabelIndex = post.content.findIndex((s) => s.trim().endsWith(":") && s.length < 50);
+  const paragraphs =
+    listLabelIndex >= 0 ? post.content.slice(0, listLabelIndex) : post.content;
+  const listLabel = listLabelIndex >= 0 ? post.content[listLabelIndex] : null;
+  const listItems =
+    listLabelIndex >= 0 ? post.content.slice(listLabelIndex + 1) : [];
 
   return (
     <Layout>
@@ -49,21 +54,22 @@ export default function BlogDetailStatic({ pageId }: { pageId: StaticPageId }) {
           <p className="mt-2 text-sm text-[#2C2C2C]/60">{BLOG_DATE}</p>
 
           {heroSrc && (
-            <div className="mt-8 overflow-hidden rounded-lg">
+            <div className="blog-image-container mt-8">
               <img
                 src={heroSrc}
                 alt=""
                 loading="eager"
-                width={1200}
-                height={600}
-                className="w-full h-auto object-cover image-premium"
+                className="image-premium"
               />
             </div>
           )}
 
           <div className="mt-10 prose prose-neutral max-w-none" style={{ lineHeight: 1.7 }}>
-            {intro && <p className="text-[#2C2C2C]/90">{intro}</p>}
-            {fleetPara && <p className="mt-6 text-[#2C2C2C]/90">{fleetPara}</p>}
+            {paragraphs.map((para, i) => (
+              <p key={i} className={i === 0 ? "text-[#2C2C2C]/90" : "mt-6 text-[#2C2C2C]/90"}>
+                {para}
+              </p>
+            ))}
             {listLabel && <p className="mt-6 font-semibold text-[#2C2C2C]">{listLabel}</p>}
             {listItems.length > 0 && (
               <ul className="mt-3 list-disc list-inside space-y-2 text-[#2C2C2C]/80">
@@ -78,14 +84,12 @@ export default function BlogDetailStatic({ pageId }: { pageId: StaticPageId }) {
             <div className="mt-12 grid gap-4 sm:grid-cols-3">
               {supportSrcs.map((src, i) =>
                 src ? (
-                  <div key={i} className="overflow-hidden rounded-lg">
+                  <div key={i} className="responsive-image-container">
                     <img
                       src={src}
                       alt=""
                       loading="lazy"
-                      width={400}
-                      height={300}
-                      className="w-full h-auto object-cover image-premium"
+                      className="image-premium"
                     />
                   </div>
                 ) : null

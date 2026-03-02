@@ -27,21 +27,21 @@ const About = () => {
         <div className="mt-10 grid items-center gap-8 sm:mt-12 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-6">
             {main && (
-              <div className="overflow-hidden rounded-xl border border-stone-dark">
+              <div className="responsive-image-container border border-stone-dark">
                 <img
                   src={main}
                   alt="Professional construction site operations and machinery"
-                  className="aspect-[4/3] w-full object-cover image-industrial"
+                  className="image-industrial"
                   loading="lazy"
                 />
               </div>
             )}
             {sub1 && (
-              <div className="overflow-hidden rounded-xl border border-stone-dark">
+              <div className="responsive-image-container border border-stone-dark">
                 <img
                   src={sub1}
                   alt="Site and fleet operations"
-                  className="aspect-[4/3] w-full object-cover image-industrial"
+                  className="image-industrial"
                   loading="lazy"
                 />
               </div>

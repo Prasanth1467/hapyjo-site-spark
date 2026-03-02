@@ -82,11 +82,11 @@ const Services = () => {
                 className="flex h-full flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-colors hover:border-slate-400"
               >
                 {img && (
-                  <div className="w-full overflow-hidden rounded-t-xl">
+                  <div className="responsive-image-container rounded-t-xl border-b border-slate-200">
                     <img
                       src={img}
                       alt=""
-                      className="h-[180px] w-full object-cover md:h-[200px] lg:h-[220px]"
+                      className="image-industrial"
                       loading="lazy"
                     />
                   </div>
@@ -104,7 +104,7 @@ const Services = () => {
                     </p>
                     <div className="mt-5 border-t border-slate-200 pt-3">
                       <span className="text-xs text-slate-500">
-                        Deployment Available
+                        Available
                       </span>
                       <a
                         href={s.ctaHref}
